@@ -1,0 +1,1 @@
+PIPE_PATH = "/Users/voxar/minecraftserver/minecraftserver/pipe"

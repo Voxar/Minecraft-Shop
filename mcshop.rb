@@ -4,13 +4,11 @@ require 'erb'
 require 'helpers'
 require 'json'
 require 'prettyprint'
-
+require 'config'
 get '/' do
   erb :index
 end
 
-
-PIPE_PATH = "/Users/voxar/minecraftserver/minecraftserver/pipe"
 
 post '/order' do 
   items = JSON.load(params["items"])
