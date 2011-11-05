@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>The Minecraft Shop</title>
+    <link rel="stylesheet" href="/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <script src="/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/json2.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      $(function() {
+        var cart_item = {
+          element: $(".templates .cart_item"),
+          create: function(item) {
+            console.log(item)
+            var e = this.element.clone()
+            e.find("img").attr("src", item.find("img").attr("src"))
+            e.attr("data-id", item.attr("data-id"))
+            var item_max = parseInt(item.attr("data-max"))
+            console.log(item_max)
+
+            e.find("input").attr("max", item_max).attr("value", item_max)
+            if(item_max == 1){
+              e.find("input").hide()
+            }
+            e.find("button").click(function() {
+              $(this).closest(".cart_item").remove()
+            })
+            return e
+          }
+        }
+        var cart = {
+          element: $("#cart"),
+          list: $("#cart .items"),
+          items: function() {
+            return this.list.find(".cart_item")
+          },
+          add: function(item) {
+            this.list.append(cart_item.create($(item)))
+          },
+          order: function() {
+            var username = $("#name").val();
+
+            if(username == undefined || username == ""){
+              alert("You forgot your name!")
+              $("#name").focus();
+              return false;
+            }
+            var items = []
+            $.each(cart.items(), function(i) {
+              var count = $(this).find("input").val()
+              var id = $(this).attr("data-id")
+              console.log(id, count)
+              items.push({"id":id, "count":count})
+            })
+            var data = {
+              "items": JSON.stringify(items),
+              "username": username
+            };
+            console.log(data)
+            var self = this;
+            $.post("/order", data, function(d) {
+              self.items().slideUp(function() {$(this).remove()});
+            })
+          },
+        }
+        $(".item").click(function() {
+          cart.add(this)
+        })
+        
+        $("#cart button").click(function() {
+          cart.order();
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <div id="page">
+      <%= yield %>
+    </div>
+  </body>
+</html>

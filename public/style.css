@@ -1,0 +1,38 @@
+#page{
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+}
+
+.recipe td{
+  background-color: #C6C6C6;
+  padding: 0px;
+  margin: 0px;
+  vertical-align: center;
+  width: 36px;
+  height: 36px;
+  background-image: url(/images/grid.png);
+}
+
+#items{
+  float:left;
+}
+#cart{
+  float:right;
+}
+
+#cart td{
+  vertical-align: middle;
+}
+
+.item{
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  background-color: red;
+  background-image: url(/images/grid.png);
+}
+
+.templates{
+  display: none;
+}

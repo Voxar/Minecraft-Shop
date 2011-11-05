@@ -1,0 +1,32 @@
+
+<div class="templates">
+  <table>
+  <tr class="cart_item">
+    <td class="item"><img src="/items/plank.png"></td><td><input type="number" min="1" max="64" size="2" value="64"></td><td><button>X</button><input type="hidden" name="id" value=""></input></td>
+  </tr>
+  </table>
+</div>
+
+<h2>Welcome to the Minecraft Store!</h2>
+<p>What is your name: <input type="text" name="name" value="" id="name"></p>
+<p>Pick your items, type your in game nick, and order!</p>
+<div id="items">
+  <h3>Contstruction</h3>
+  <%=
+    Item.items.map do |item|
+      "<div class=\"item\" data-id=\"#{item.id}\" data-max=\"#{item.max}\">#{item.image_tag}</div>"
+    end.join("\n")
+  %>
+  <h3>Circutry</h3>
+  <h3>Armour</h3>
+  <h3>Weapons</h3>
+</div>
+
+<div id="cart">
+  <div class="items">
+    Shopping cart:<br>
+  </div>
+  <button>Order!</button>
+</div>
+
+
